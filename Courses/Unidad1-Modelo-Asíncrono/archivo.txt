@@ -1,0 +1,5 @@
+Hola
+Estamos estudiando NodeJS
+Ejercicio de código Bloqueante y no Bloqueante
+Cuidado con los Callback Hells
+Hasta luego!

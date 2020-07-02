@@ -1,0 +1,144 @@
+openapi: 3.0.0
+info:
+  title: Policies and Clients services
+  description: Esta API permite obtener información de los clientes y las políticas
+    enlazadas de la compañía
+  termsOfService: https://rafarc97.github.io/
+  contact:
+    name: Rafael
+    url: https://rafarc97.github.io/
+    email: rafaelrodriguezcalvente@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0-oas3
+servers:
+- url: http://localhost:5000/
+  description: Servidor Local
+paths:
+  /politics/{id}:
+    get:
+      description: Obtener lista de políticas enlazada a un cliente
+      operationId: politicsIdGET
+      parameters:
+      - name: id
+        in: path
+        description: Id cliente
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: a0ece5db-cd14-4f21-812f-966633e7be86
+      responses:
+        "200":
+          description: Solicitud exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/inline_response_200'
+                x-content-type: application/json
+        "400":
+          description: Error en la petición
+          content:
+            application/json:
+              schema:
+                type: string
+                example: '{"message":"Ha ocurrido un error en la petición."}'
+                x-content-type: application/json
+        "401":
+          description: No estás autorizado
+          content:
+            application/json:
+              schema:
+                type: string
+                example: '{"message":"Error. No estás autorizado."}'
+                x-content-type: application/json
+        "404":
+          description: Página o solicitud no encontrada
+          content:
+            application/json:
+              schema:
+                type: string
+                example: '{"message":"Error. Página o solicitud no encontrada"}'
+                x-content-type: application/json
+      x-swagger-router-controller: Default
+  /politics/policyid/{id}:
+    get:
+      description: Obtener el usuario enlazado a la política
+      operationId: politicsPolicyidIdGET
+      parameters:
+      - name: id
+        in: path
+        description: Código de la política
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: a0ece5db-cd14-4f21-812f-966633e7be86
+      responses:
+        "200":
+          description: Solicitud exitosa
+          content:
+            application/json:
+              schema:
+                type: string
+                example: a0ece5db-cd14-4f21-812f-966633e7be86
+                x-content-type: application/json
+        "400":
+          description: Error en la petición
+          content:
+            application/json:
+              schema:
+                type: string
+                example: '{"message":"Ha ocurrido un error en la petición."}'
+                x-content-type: application/json
+        "401":
+          description: No estás autorizado
+          content:
+            application/json:
+              schema:
+                type: string
+                example: '{"message":"Error. No estás autorizado."}'
+                x-content-type: application/json
+        "404":
+          description: Página o solicitud no encontrada
+          content:
+            application/json:
+              schema:
+                type: string
+                example: '{"message":"Error. Página o solicitud no encontrada"}'
+                x-content-type: application/json
+      x-swagger-router-controller: Default
+components:
+  schemas:
+    inline_response_200:
+      properties:
+        id:
+          type: string
+          example: a0ece5db-cd14-4f21-812f-966633e7be86
+        amountInsured:
+          type: number
+          example: 1825.89
+        email:
+          type: string
+          example: inesblankenship@quotezart.com
+        inceptionDate:
+          type: string
+          format: date
+        installmentPayment:
+          type: boolean
+          example: true
+        clientId:
+          type: string
+          example: e8fd159b-57c4-4d36-9bd7-a59ca13057bb
+      example:
+        clientId: e8fd159b-57c4-4d36-9bd7-a59ca13057bb
+        inceptionDate: 2000-01-23
+        amountInsured: 1825.89
+        id: a0ece5db-cd14-4f21-812f-966633e7be86
+        installmentPayment: true
+        email: inesblankenship@quotezart.com

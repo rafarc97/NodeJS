@@ -1,0 +1,347 @@
+openapi: 3.0.0
+info:
+  title: Clients Services
+  description: Esta API permite obtener información de los clientes de la compañía
+  termsOfService: https://rafarc97.github.io/
+  contact:
+    name: Rafael
+    url: https://rafarc97.github.io/
+    email: rafaelrodriguezcalvente@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0-oas3
+servers:
+- url: http://localhost:3000/
+  description: Servidor Local
+paths:
+  /clients:
+    get:
+      description: Permite obtener la lista de todos los clientes
+      operationId: clientsGET
+      parameters:
+      - name: id
+        in: query
+        description: Código del cliente
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: a0ece5db-cd14-4f21-812f-966633e7be86
+      - name: name
+        in: query
+        description: Nombre del cliente
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: Britney
+      - name: email
+        in: query
+        description: Email del cliente
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: britneyblankenship@quotezart.com
+      - name: role
+        in: query
+        description: Role del cliente
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: admin
+      responses:
+        "200":
+          description: Solicitud exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/inline_response_200'
+                x-content-type: application/json
+        "400":
+          description: Error en la petición
+          content:
+            application/json:
+              schema:
+                type: string
+                example: '{"message":"Ha ocurrido un error en la petición."}'
+                x-content-type: application/json
+        "401":
+          description: No estás autorizado
+          content:
+            application/json:
+              schema:
+                type: string
+                example: '{"message":"Error. No estás autorizado."}'
+                x-content-type: application/json
+        "404":
+          description: Página o solicitud no encontrada
+          content:
+            application/json:
+              schema:
+                type: string
+                example: '{"message":"Error. Página o solicitud no encontrada"}'
+                x-content-type: application/json
+      x-swagger-router-controller: Default
+    post:
+      description: Permite añadir clientes en nuestra base de datos
+      operationId: clientsPOST
+      parameters:
+      - name: clients
+        in: query
+        description: Crear un nuevo cliente en la base de datos
+        required: false
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/clients'
+      responses:
+        "200":
+          description: Solicitud exitosa
+          content:
+            application/json:
+              schema:
+                type: string
+                example: OK
+                x-content-type: application/json
+      x-swagger-router-controller: Default
+  /clients/{id}:
+    get:
+      description: Obtener información de un cliente ingresando su ID
+      operationId: clientsIdGET
+      parameters:
+      - name: id
+        in: path
+        description: Código del cliente
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: a0ece5db-cd14-4f21-812f-966633e7be86
+      responses:
+        "200":
+          description: Solicitud exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/inline_response_200'
+                x-content-type: application/json
+        "400":
+          description: Error en la petición
+          content:
+            application/json:
+              schema:
+                type: string
+                example: '{"message":"Ha ocurrido un error en la petición."}'
+                x-content-type: application/json
+        "401":
+          description: No estás autorizado
+          content:
+            application/json:
+              schema:
+                type: string
+                example: '{"message":"Error. No estás autorizado."}'
+                x-content-type: application/json
+        "404":
+          description: Página o solicitud no encontrada
+          content:
+            application/json:
+              schema:
+                type: string
+                example: '{"message":"Error. Página o solicitud no encontrada"}'
+                x-content-type: application/json
+      x-swagger-router-controller: Default
+    put:
+      description: Actualizar el nombre de un cliente ingresando su ID
+      operationId: clientsIdPUT
+      parameters:
+      - name: id
+        in: path
+        description: Código del cliente
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: a0ece5db-cd14-4f21-812f-966633e7be86
+      responses:
+        "200":
+          description: Solicitud exitosa
+          content:
+            application/json:
+              schema:
+                type: string
+                example: '{"message":"Client <id> updated"}'
+                x-content-type: application/json
+        "400":
+          description: Error en la petición
+          content:
+            application/json:
+              schema:
+                type: string
+                example: '{"message":"Ha ocurrido un error en la petición."}'
+                x-content-type: application/json
+        "401":
+          description: No estás autorizado
+          content:
+            application/json:
+              schema:
+                type: string
+                example: '{"message":"Error. No estás autorizado."}'
+                x-content-type: application/json
+        "404":
+          description: Página o solicitud no encontrada
+          content:
+            application/json:
+              schema:
+                type: string
+                example: '{"message":"Error. Página o solicitud no encontrada"}'
+                x-content-type: application/json
+      x-swagger-router-controller: Default
+    delete:
+      description: Borrar información de un cliente ingresando su ID
+      operationId: clientsIdDELETE
+      parameters:
+      - name: id
+        in: path
+        description: Código del cliente
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: a0ece5db-cd14-4f21-812f-966633e7be86
+      responses:
+        "200":
+          description: Solicitud exitosa
+          content:
+            application/json:
+              schema:
+                type: string
+                example: '{"message":"Client <id> deleted"}'
+                x-content-type: application/json
+        "400":
+          description: Error en la petición
+          content:
+            application/json:
+              schema:
+                type: string
+                example: '{"message":"Ha ocurrido un error en la petición."}'
+                x-content-type: application/json
+        "401":
+          description: No estás autorizado
+          content:
+            application/json:
+              schema:
+                type: string
+                example: '{"message":"Error. No estás autorizado."}'
+                x-content-type: application/json
+        "404":
+          description: Página o solicitud no encontrada
+          content:
+            application/json:
+              schema:
+                type: string
+                example: '{"message":"Error. Página o solicitud no encontrada"}'
+                x-content-type: application/json
+      x-swagger-router-controller: Default
+  /clients/{name}:
+    get:
+      description: Obtener información de un cliente ingresando su nombre
+      operationId: clientsNameGET
+      parameters:
+      - name: name
+        in: path
+        description: Nombre del cliente
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: Britney
+      responses:
+        "200":
+          description: Solicitud exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/inline_response_200'
+                x-content-type: application/json
+        "400":
+          description: Error en la petición
+          content:
+            application/json:
+              schema:
+                type: string
+                example: '{"message":"Ha ocurrido un error en la petición."}'
+                x-content-type: application/json
+        "401":
+          description: No estás autorizado
+          content:
+            application/json:
+              schema:
+                type: string
+                example: '{"message":"Error. No estás autorizado."}'
+                x-content-type: application/json
+        "404":
+          description: Página o solicitud no encontrada
+          content:
+            application/json:
+              schema:
+                type: string
+                example: '{"message":"Error. Página o solicitud no encontrada"}'
+                x-content-type: application/json
+      x-swagger-router-controller: Default
+components:
+  schemas:
+    inline_response_200:
+      properties:
+        id:
+          type: string
+          example: a0ece5db-cd14-4f21-812f-966633e7be86
+        name:
+          type: string
+          example: Britney
+        email:
+          type: string
+          example: britneyblankenship@quotezart.com
+        role:
+          type: string
+          example: admin
+      example:
+        role: admin
+        name: Britney
+        id: a0ece5db-cd14-4f21-812f-966633e7be86
+        email: britneyblankenship@quotezart.com
+    clients:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID del cliente
+          example: a0ece5db-cd14-4f21-812f-966633e7be86
+        name:
+          type: string
+          description: Nombre del cliente
+          example: Britney
+        email:
+          type: string
+          description: Email del cliente
+          example: britneyblankenship@quotezart.com
+        role:
+          type: string
+          description: Role del cliente
+          example: admin
